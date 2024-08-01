@@ -1,5 +1,6 @@
 using Solferino.DAL;
 using Microsoft.EntityFrameworkCore;
+using Solferino.DAL.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
