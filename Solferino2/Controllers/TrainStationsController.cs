@@ -41,7 +41,7 @@ namespace Solferino2.Controllers
             
             var stations = await _context.TrainStations.Include(station => station.PassengerRecords)
                 .OrderByDescending(station => station.PassengerRecords.Sum(record => record.NbOfPassengers))
-                .Take(10)
+                .Take(100)
                 .Select(station => station.ToDto())
                 .ToListAsync();
 

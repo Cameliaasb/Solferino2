@@ -1,6 +1,6 @@
 @Solferino2_HostAddress = http://localhost:5038
 
-GET {{Solferino2_HostAddress}}/weatherforecast/
+GET {{Solferino2_HostAddress}}/
 Accept: application/json
 
 ###
