@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using DAL.Entities;
+using DAL;
 using DAL.Enums;
+using Microsoft.Extensions.DependencyInjection;
+using DAL.Entities;
 
-namespace DAL
+namespace DAL.Data
 {
     public static class SeedData
     {

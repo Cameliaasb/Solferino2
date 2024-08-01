@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solferino.Server", "Solferi
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Solferino.Client", "Solferino.Client\Solferino.Client.esproj", "{C0CF45D2-E7A8-4A5D-94B8-4BEBD667D43E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{C0CF45D2-E7A8-4A5D-94B8-4BEBD667D43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0CF45D2-E7A8-4A5D-94B8-4BEBD667D43E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0CF45D2-E7A8-4A5D-94B8-4BEBD667D43E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

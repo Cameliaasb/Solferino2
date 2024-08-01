@@ -1,6 +1,6 @@
+using DAL;
 using Microsoft.EntityFrameworkCore;
-using Solferino.Data;
-using Solferino.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +29,6 @@ var app = builder.Build();
 // Seeds
 using (var scope = app.Services.CreateScope())
 {
-    //// For fake data seeds
-    //var dbContext = scope.ServiceProvider.GetRequiredService<TrainStationContext>();
-    //dbContext.Database.EnsureCreated(); 
-
-    // For JSON data
     var services = scope.ServiceProvider;
     SeedData.Initialize(services);
 }

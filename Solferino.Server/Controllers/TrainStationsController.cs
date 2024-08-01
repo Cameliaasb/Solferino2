@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL;
+using DAL.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Solferino.Models;
-using Solferino.Models.DTOs;
-using Solferino.Models.Mappers;
+
+
 
 namespace Solferino.Controllers
 {
