@@ -1,4 +1,4 @@
-﻿namespace DAL.Enums
+﻿namespace Solferino.DAL.Enums
 {
     public enum TimeRange
     {

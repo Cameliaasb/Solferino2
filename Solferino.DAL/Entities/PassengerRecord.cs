@@ -1,6 +1,6 @@
-﻿using DAL.Enums;
+﻿using Solferino.DAL.Enums;
 
-namespace DAL.Entities
+namespace Solferino.DAL.Entities
 {
     public class PassengerRecord
     {

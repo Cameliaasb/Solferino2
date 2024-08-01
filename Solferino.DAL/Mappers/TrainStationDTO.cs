@@ -1,4 +1,4 @@
-﻿namespace DAL.Mappers
+﻿namespace Solferino.DAL.Mappers
 {
     public class TrainStationDTO
     {

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solferino.Server", "Solferi
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Solferino.Client", "Solferino.Client\Solferino.Client.esproj", "{C0CF45D2-E7A8-4A5D-94B8-4BEBD667D43E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solferino.DAL", "Solferino.DAL\Solferino.DAL.csproj", "{4F5D2D7A-3E7C-4B53-9D23-DC0CEA63FC26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
 
-namespace DAL.Entities
+namespace Solferino.DAL.Entities
 {
     public class TrainStation
     {

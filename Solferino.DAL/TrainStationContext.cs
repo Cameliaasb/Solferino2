@@ -1,7 +1,7 @@
-﻿using DAL.Entities;
+﻿using Solferino.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL
+namespace Solferino.DAL
 {
     public class TrainStationContext : DbContext
     {

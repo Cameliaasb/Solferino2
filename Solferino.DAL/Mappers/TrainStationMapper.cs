@@ -1,6 +1,6 @@
-﻿using DAL.Entities;
+﻿using Solferino.DAL.Entities;
 
-namespace DAL.Mappers
+namespace Solferino.DAL.Mappers
 {
     public static class TrainStationMapper
     {
