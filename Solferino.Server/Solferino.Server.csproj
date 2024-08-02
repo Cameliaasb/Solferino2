@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Solferino.DAL\Solferino.DAL.csproj" />
+    <ProjectReference Include="..\Solferino.BL\Solferino.BL.csproj" />
   </ItemGroup>
 
 </Project>

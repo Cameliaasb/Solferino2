@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Solferino.DAL;
-using Solferino.DAL.Mappers;
-using Microsoft.AspNetCore.Http;
+﻿using Solferino.DAL;
+using Solferino.BL.DTOs;
+using Solferino.BL.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
