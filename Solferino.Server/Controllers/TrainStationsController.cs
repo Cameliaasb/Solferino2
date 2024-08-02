@@ -42,7 +42,7 @@ namespace Solferino.Controllers
 
 
         // GET: api/TrainStations/Lines
-        [HttpGet("/Lines")]
+        [HttpGet("Lines")]
         public async Task<ActionResult<IEnumerable<string>>> GetLines()
         {
             var lines = await _service.GetLines();
