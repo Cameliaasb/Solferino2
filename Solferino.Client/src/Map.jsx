@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Circle, LayerGroup } from "react-leaflet";
 import Form from 'react-bootstrap/Form';
-
-
 import "leaflet/dist/leaflet.css";
 
 const SimpleMap = () => {
@@ -37,10 +35,14 @@ const SimpleMap = () => {
     const stationMarkers = stations === undefined
         ? <p>En cours de chargement </p>
         : stations.map(station =>
-            <Marker key={station.name} position={[station.latitude, station.longitude]}> </Marker>
+            <Marker key={station.name} position={[station.latitude, station.longitude]}>
+            </Marker>
         )
         
     // TO DO: fix probleme de réactivité => Tjrs one step behind après les Select
+    // TO DO: marker avec size qui change selon le nb de résultats => moyenne or total?
+    // TO DO: implement filtre : type de jour et tranche horaire
+    // TO DO: remove useless packages 
     const selectLine = lines === undefined
         ? <p> </p>
         : <Form.Select className="col"  onChange={handleChangeLine} >
@@ -51,13 +53,14 @@ const SimpleMap = () => {
             )}
         </Form.Select>
 
-    const selectPageSize =
-        <Form.Select className="col" onChange={handleChangePageSize} >
-            <option>Nombre maximal resultats</option>
-            <option value={5}> 5</option>
-            <option value={10}> 10</option>
-            <option value={20}> 20</option>
-            <option value={50}> 50</option>
+    const selectPageSize = pageSize === undefined
+        ? <p> </p>
+        : <Form.Select className="col" onChange={handleChangePageSize} >
+            <option>Nombre maximal de resultats</option>
+            <option value={5}> 5 </option>
+            <option value={10}> 10 </option>
+            <option value={20}> 20 </option>
+            <option value={50}> 50 </option>
         </Form.Select>
 
 
@@ -76,8 +79,9 @@ const SimpleMap = () => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[center.latitude, center.longitude]}> </Marker>
+        
                 {stationMarkers}
+
             </MapContainer>
         </div>
     );
@@ -98,7 +102,7 @@ const SimpleMap = () => {
 
 
     async function fetchTrainStations() {
-        console.log(pageSize)     // one step behind : WHY?
+        console.log(pageSize)      // one step behind : WHY?
         console.log(selectedLine)  // one step behind : WHY?
 
         const baseUrl = `https://localhost:44309/api/trainstations/pageSize${pageSize}/Filters?`;     // A mettre dans .ENV
