@@ -3,6 +3,7 @@ using Solferino.BL.DTOs;
 using Solferino.BL.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Solferino.BL.Services;
 
 
 
@@ -13,37 +14,23 @@ namespace Solferino.Controllers
     public class TrainStationsController : ControllerBase
     {
         private readonly TrainStationContext _context;
+        private readonly TrainStationService _service;
 
-        public TrainStationsController(TrainStationContext context)
+
+        public TrainStationsController(TrainStationContext context, TrainStationService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: api/TrainStations/PageSize{nb}
         [HttpGet("PageSize{pageSize}")]
         public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetTrainStations([FromRoute] int pageSize)
         {
-            var stations = await _context.TrainStations
-                .Include(station => station.PassengerRecords)
-                .Take(pageSize)
-                .Select(station => station.ToDto())
-                .ToListAsync();
-            return stations;
+            var stations = await _service.GetTrainStations(pageSize);
+            return Ok(stations);
         }
 
-        // GET: api/TrainStations/Top100
-        [HttpGet("Top100")]
-        public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetTopTrainStations()
-        {
-            
-            var stations = await _context.TrainStations.Include(station => station.PassengerRecords)
-                .OrderByDescending(station => station.PassengerRecords.Sum(record => record.NbOfPassengers))
-                .Take(100)
-                .Select(station => station.ToDto())
-                .ToListAsync();
-
-            return stations;
-        }
 
         // GET: api/TrainStations/5
         //[HttpGet("{id}")]

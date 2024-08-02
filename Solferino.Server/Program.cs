@@ -1,6 +1,7 @@
 using Solferino.DAL;
 using Microsoft.EntityFrameworkCore;
 using Solferino.DAL.Data;
+using Solferino.BL.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TrainStationContext>(opt =>
     opt.UseInMemoryDatabase("TrainStations"));
+builder.Services.AddScoped<TrainStationService, TrainStationService>();   // TO DO: Better if <ITrainStationService, TrainStationService> 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -24,7 +27,6 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod();
         });
 });
-
 var app = builder.Build();
 
 // Seeds
