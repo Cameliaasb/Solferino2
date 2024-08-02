@@ -71,7 +71,8 @@ namespace Solferino.DAL.Data
                     Day = t["jour"]!.ToDayType(),
                     TimeRange = t["par_periode_horaire"]!.ToTimeRange(),
                     NbOfPassengers = t["montees"]!.Value<int>(),
-                    TrainStationCode = t["codegare"]!.ToString()
+                    TrainStationCode = t["codegare"]!.ToString(),
+                    Line = t["ligne"]!.ToString(),
                 })
                 .ToList();
         }
