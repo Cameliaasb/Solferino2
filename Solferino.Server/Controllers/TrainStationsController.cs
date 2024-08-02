@@ -41,6 +41,15 @@ namespace Solferino.Controllers
         }
 
 
+        // GET: api/TrainStations/Lines
+        [HttpGet("/Lines")]
+        public async Task<ActionResult<IEnumerable<string>>> GetLines()
+        {
+            var lines = await _service.GetLines();
+            return Ok(lines);
+        }
+
+
         // GET: api/TrainStations/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<TrainStation>> GetTrainStation(int id)

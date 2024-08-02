@@ -11,5 +11,7 @@ namespace Solferino.BL.Services
     {
         Task<IEnumerable<TrainStationDTO>> GetTrainStations(int pageSize);
         Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(int pageSize, Filters filters);
+        Task<IEnumerable<string>> GetLines();
+
     }
 }

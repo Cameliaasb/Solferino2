@@ -44,6 +44,15 @@ namespace Solferino.BL.Services
             return stationDtos;
         }
 
+        public async Task<IEnumerable<string>> GetLines()
+        {
+            var lines = await _context.PassengerRecords
+                .Select(record => record.Line).Distinct()
+                .ToListAsync();
+
+            return lines;
+        }
+
 
         private IQueryable<TrainStation> ApplyFilters (IQueryable<TrainStation> query, Filters filters)
         {

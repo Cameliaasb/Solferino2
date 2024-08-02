@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Circle, LayerGroup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
 
 const SimpleMap = () => {
     const [stations, setStations] = useState();
@@ -11,7 +10,6 @@ const SimpleMap = () => {
         longitude: 2.333333,
         name: "Paris",
     };
-    console.log(stations)
 
     useEffect(() => {
         fetchData()
@@ -23,9 +21,6 @@ const SimpleMap = () => {
             <Marker key={station.name} position={[station.latitude, station.longitude]}> </Marker>
         )
         
-
-
-
 
     return (
         <MapContainer center={[center.latitude, center.longitude]} zoom={9}  style={{ height: "80vh", width: "80vw" }}>
