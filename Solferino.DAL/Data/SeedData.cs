@@ -17,9 +17,8 @@ namespace Solferino.DAL.Data
 
             if (context.TrainStations.Any()) return;
             
-            // TO DO: CLEANER PATH
-            var trainStationsJson = File.ReadAllText("C:\\Users\\kassobhe\\source\\repos\\Solferino\\Solferino.DAL\\Data\\TrainStations.json");
-            var passengerRecordsJson = File.ReadAllText("C:\\Users\\kassobhe\\source\\repos\\Solferino\\Solferino.DAL\\Data\\PassengerRecords.json");
+            var trainStationsJson = File.ReadAllText("..\\Solferino.DAL\\Data\\TrainStations.json");
+            var passengerRecordsJson = File.ReadAllText("..\\Solferino.DAL\\Data\\PassengerRecords.json");
 
             var trainStations = JsonConvert.DeserializeObject<List<JObject>>(trainStationsJson);
             var passengerRecords = JsonConvert.DeserializeObject<List<JObject>>(passengerRecordsJson);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Circle, LayerGroup } from "react-leaflet";
 import Form from 'react-bootstrap/Form';
+require('dotenv').config()
 
 
 import "leaflet/dist/leaflet.css";
@@ -8,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 const SimpleMap = () => {
     const [stations, setStations] = useState();
     const [lines, setLines] = useState();
+    const [pageSize, setPageSize] = useState(10);
     const [selectedLine, setSelectedLine] = useState("");
 
 
@@ -21,8 +23,9 @@ const SimpleMap = () => {
         fetchData()
     }, [])
 
-    const handleChange = (e) => {
-        setSelectedLine(e.target.value);
+    const handleChangeLine = async (e) => {
+       await setSelectedLine(e.target.value);
+       fetchTrainStations();
     }
 
     const stationMarkers = stations === undefined
@@ -31,9 +34,9 @@ const SimpleMap = () => {
             <Marker key={station.name} position={[station.latitude, station.longitude]}> </Marker>
         )
         
-    const lineOptions = lines === undefined
+    const selectLine = lines === undefined
         ? <p> </p>
-        : <Form.Select onChange={handleChange} >
+        : <Form.Select onChange={handleChangeLine} >
             <option>Selectionner une ligne</option>
 
             {lines.map((line, i) => 
@@ -42,11 +45,28 @@ const SimpleMap = () => {
         </Form.Select>
 
 
+const handleChangePageSize = (e) => {
+        setPageSize(e.target.value);
+        fetchTrainStations();
+    }
 
+    const selectPageSize =
+        <Form.Select onChange={handleChangePageSize} >
+            <option>Nombre maximal résultats</option>
+            <option value={5}> 5</option>
+            <option value={10}> 10</option>
+            <option value={20}> 20</option>
+            <option value={50}> 50</option>
+        </Form.Select>
+
+
+
+    // TO DO: fix probleme de réactivité => Tjrs one step behind après les Select
 
     return (
         <div>
-            {lineOptions}
+            {selectLine}
+            {selectPageSize}
 
             <MapContainer center={[center.latitude, center.longitude]} zoom={9}  style={{ height: "80vh", width: "80vw" }}>
                 <TileLayer
@@ -61,15 +81,7 @@ const SimpleMap = () => {
 
 
     async function fetchData() {
-        const trainStations = await fetch("https://localhost:44309/api/trainstations/pageSize3", {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        const dataStations = await trainStations.json();
-        setStations(dataStations);
-
+        await fetchTrainStations();
 
         const lines = await fetch("https://localhost:44309/api/trainstations/lines", {
             method: 'GET',
@@ -79,7 +91,24 @@ const SimpleMap = () => {
         });
         const dataLines = await lines.json();
         setLines(dataLines);
-        console.log(dataLines)
+    }
+
+
+    async function fetchTrainStations() {
+        console.log(pageSize)     // one step behind : WHY?
+        console.log(selectedLine)  // one step behind : WHY?
+
+        const baseUrl = `https://localhost:44309/api/trainstations/pageSize${pageSize}/Filters?`;     // A mettre dans .ENV
+        const filters = selectedLine ? `line=${selectedLine}` : "";
+
+        const trainStations = await fetch(baseUrl + filters, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        const dataStations = await trainStations.json();
+        setStations(dataStations);
     }
 };
 
