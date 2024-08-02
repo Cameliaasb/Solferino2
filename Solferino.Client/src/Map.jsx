@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Circle, LayerGroup } from "react-leaflet";
 import Form from 'react-bootstrap/Form';
-require('dotenv').config()
 
 
 import "leaflet/dist/leaflet.css";
@@ -11,7 +10,6 @@ const SimpleMap = () => {
     const [lines, setLines] = useState();
     const [pageSize, setPageSize] = useState(10);
     const [selectedLine, setSelectedLine] = useState("");
-
 
     const center = {
         latitude: 48.866667,
@@ -23,10 +21,18 @@ const SimpleMap = () => {
         fetchData()
     }, [])
 
+
+
     const handleChangeLine = async (e) => {
        await setSelectedLine(e.target.value);
        fetchTrainStations();
     }
+    const handleChangePageSize = async (e) => {
+        await setPageSize(e.target.value);
+        fetchTrainStations();
+    }
+
+
 
     const stationMarkers = stations === undefined
         ? <p>En cours de chargement </p>
@@ -34,25 +40,20 @@ const SimpleMap = () => {
             <Marker key={station.name} position={[station.latitude, station.longitude]}> </Marker>
         )
         
+    // TO DO: fix probleme de réactivité => Tjrs one step behind après les Select
     const selectLine = lines === undefined
         ? <p> </p>
-        : <Form.Select onChange={handleChangeLine} >
-            <option>Selectionner une ligne</option>
+        : <Form.Select className="col"  onChange={handleChangeLine} >
+            <option>Selectionner une ligne de train</option>
 
             {lines.map((line, i) => 
                 <option key={i} value={line}>{line}</option>
             )}
         </Form.Select>
 
-
-const handleChangePageSize = (e) => {
-        setPageSize(e.target.value);
-        fetchTrainStations();
-    }
-
     const selectPageSize =
-        <Form.Select onChange={handleChangePageSize} >
-            <option>Nombre maximal résultats</option>
+        <Form.Select className="col" onChange={handleChangePageSize} >
+            <option>Nombre maximal resultats</option>
             <option value={5}> 5</option>
             <option value={10}> 10</option>
             <option value={20}> 20</option>
@@ -61,12 +62,14 @@ const handleChangePageSize = (e) => {
 
 
 
-    // TO DO: fix probleme de réactivité => Tjrs one step behind après les Select
 
     return (
         <div>
-            {selectLine}
-            {selectPageSize}
+            <p> to fix : reactivity issue, always one step behind</p>
+            <Form className="row gap-3 my-4">
+                {selectLine}
+                {selectPageSize}
+            </Form>
 
             <MapContainer center={[center.latitude, center.longitude]} zoom={9}  style={{ height: "80vh", width: "80vw" }}>
                 <TileLayer
