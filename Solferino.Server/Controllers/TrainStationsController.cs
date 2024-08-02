@@ -29,6 +29,15 @@ namespace Solferino.Controllers
         {
             var stations = await _service.GetTrainStations(pageSize);
             return Ok(stations);
+
+        }       
+        
+        // GET: api/TrainStations/Filters
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetFilteredTrainStations([FromQuery] Filters filters)
+        {
+            var stations = await _service.GetFilteredTrainStations(filters);
+            return Ok(stations);
         }
 
 

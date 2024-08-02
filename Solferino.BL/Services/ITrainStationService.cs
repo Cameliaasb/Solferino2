@@ -10,6 +10,6 @@ namespace Solferino.BL.Services
     public interface ITrainStationService
     {
         Task<IEnumerable<TrainStationDTO>> GetTrainStations(int pageSize);
-
+        Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters);
     }
 }
