@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 const SimpleMap = () => {
     const [stations, setStations] = useState();
     const [lines, setLines] = useState();
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(100);
     const [selectedLine, setSelectedLine] = useState("");
 
     const center = {
@@ -43,10 +43,11 @@ const SimpleMap = () => {
     // TO DO: marker avec size qui change selon le nb de résultats => moyenne or total?
     // TO DO: implement filtre : type de jour et tranche horaire
     // TO DO: remove useless packages 
+    // TO DO: rendre pageSize optionnel
     const selectLine = lines === undefined
         ? <p> </p>
         : <Form.Select className="col"  onChange={handleChangeLine} >
-            <option>Selectionner une ligne de train</option>
+            <option value={""}>Selectionner une ligne de train</option>
 
             {lines.map((line, i) => 
                 <option key={i} value={line}>{line}</option>
@@ -56,7 +57,7 @@ const SimpleMap = () => {
     const selectPageSize = pageSize === undefined
         ? <p> </p>
         : <Form.Select className="col" onChange={handleChangePageSize} >
-            <option>Nombre maximal de resultats</option>
+            <option value={100}>Nombre maximal de resultats</option>
             <option value={5}> 5 </option>
             <option value={10}> 10 </option>
             <option value={20}> 20 </option>

@@ -1,5 +1,5 @@
-﻿using Solferino.DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using PassengerData.Entities.Entities;
 
 namespace Solferino.DAL
 {

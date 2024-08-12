@@ -1,7 +1,6 @@
-﻿using Solferino.DAL.Enums;
-using System.Reflection.Metadata.Ecma335;
+﻿using PassengerData.Entities.Enums;
 
-namespace Solferino.DAL.Entities
+namespace PassengerData.Entities.Entities
 {
     public class PassengerRecord
     {

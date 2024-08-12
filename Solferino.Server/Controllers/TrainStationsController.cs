@@ -7,7 +7,7 @@ using Solferino.BL.Services;
 
 
 
-namespace Solferino.Controllers
+namespace Solferino.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,8 +30,8 @@ namespace Solferino.Controllers
             var stations = await _service.GetTrainStations(pageSize);
             return Ok(stations);
 
-        }       
-        
+        }
+
         // GET: api/TrainStations/Filters
         [HttpGet("PageSize{pageSize}/Filters")]
         public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetFilteredTrainStations([FromRoute] int pageSize, [FromQuery] Filters filters)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Solferino.DAL.Entities
+namespace PassengerData.Entities.Entities
 {
     public class TrainStation
     {

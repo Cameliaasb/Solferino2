@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Solferino.DAL;
-using Solferino.DAL.Enums;
 using Microsoft.Extensions.DependencyInjection;
-using Solferino.DAL.Entities;
+using PassengerData.Entities.Entities;
+using PassengerData.Entities.Enums;
 
 namespace Solferino.DAL.Data
 {

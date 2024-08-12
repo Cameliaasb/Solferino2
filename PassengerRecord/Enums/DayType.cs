@@ -1,4 +1,4 @@
-﻿namespace Solferino.DAL.Enums
+﻿namespace PassengerData.Entities.Enums
 {
     public enum DayType
     {
