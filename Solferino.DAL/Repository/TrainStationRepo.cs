@@ -3,42 +3,48 @@ using PassengerData.Dto;
 using PassengerData.Entities.Entities;
 using Solferino.DAL.Interfaces;
 using Solferino.DAL.Mappers;
+using System.Linq.Expressions;
+
 
 namespace Solferino.DAL.Repository
 {
     internal class TrainStationRepo : ITrainStationRepo
     {
         private readonly TrainStationContext _context;
-        private readonly IQueryable<TrainStation> _baseQuery;
 
 
         public TrainStationRepo(TrainStationContext context)
         {
             _context = context;
-            _baseQuery = _context.TrainStations
-                .Include(station => station.PassengerRecords);
         }
 
 
         public async Task<IEnumerable<TrainStationDTO>> GetTrainStations()
         {
-            var stationDtos = await _baseQuery
+            var stationDtos = await _context.TrainStations
+              .Include(station => station.PassengerRecords)
               .Select(station => station.ToDto())
               .ToListAsync();
 
             return stationDtos;
         }
-
         public async Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters)
         {
-            var stations = await ApplyFilters(_baseQuery, filters).ToListAsync();
+            var predicate = CreateFilterPredicate(filters);
 
-            var stationDtos = stations
-                .Select(s => s.ToDto())
-                .OrderBy(s => s.NbOfPassengers)
-                .ToList();
+            var query = ApplyFilters(_context.TrainStations, filters)
+                .Select(station => new TrainStationDTO
+                {
+                    Name = station.Name,
+                    Latitude = station.Latitude,
+                    Longitude = station.Longitude,
+                    NbOfPassengers = station.PassengerRecords.AsQueryable()
+                        .Where(predicate)
+                        .Sum(record => record.NbOfPassengers)
+                });
 
-            return stationDtos;
+            var stations = await query.ToListAsync();
+            return stations;
         }
 
         public async Task<IEnumerable<string>> GetLines()
@@ -50,17 +56,20 @@ namespace Solferino.DAL.Repository
             return lines;
         }
 
+        private static Expression<Func<PassengerRecord, bool>> CreateFilterPredicate(Filters filters)
+        {
+            return record =>
+                (filters.Line == null || record.Line == filters.Line) &&
+                (filters.Day == null || (int)record.Day == filters.Day) &&
+                (filters.Year == null || record.Year == filters.Year) &&
+                (filters.TimeRange == null || (int)record.TimeRange == filters.TimeRange);
+        }
 
         private IQueryable<TrainStation> ApplyFilters(IQueryable<TrainStation> query, Filters filters)
         {
-
-            if (filters.Line is not null)
-            {
-                query = query
-                  .Where(station => station.PassengerRecords.Any(record => record.Line == filters.Line));
-            }
-
-            return query;
+            var predicate = CreateFilterPredicate(filters);
+            return query
+                .Where(station => station.PassengerRecords.AsQueryable().Any(predicate));
         }
     }
-}
+    }

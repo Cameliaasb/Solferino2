@@ -67,6 +67,7 @@ namespace Solferino.DAL.Seeds
                 {
                     Date = t["date"]!.Value<DateTime>(),
                     Day = t["jour"]!.ToDayType(),
+                    Year = t["annee"]!.Value<int>(),
                     TimeRange = t["par_periode_horaire"]!.ToTimeRange(),
                     NbOfPassengers = t["montees"]!.Value<int>(),
                     TrainStationCode = t["codegare"]!.ToString(),

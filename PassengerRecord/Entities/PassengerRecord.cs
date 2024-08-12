@@ -6,6 +6,7 @@ namespace PassengerData.Entities.Entities
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public int Year { get; set; }
         public DayType Day { get; set; }
         public TimeRange TimeRange { get; set; }
         public int NbOfPassengers { get; set; }
