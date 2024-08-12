@@ -6,7 +6,7 @@ import Filters from "./Filters";
 
 const SimpleMap = () => {
     const [stations, setStations] = useState();
-    const [filters, setFilters] = useState({});
+    const [filters, setFilters] = useState({line: "All"});
 
 
     const center = {
@@ -56,7 +56,7 @@ const SimpleMap = () => {
     async function fetchTrainStations() {
 
         const baseUrl = `https://localhost:44309/api/trainstations/Filters?`;     // A mettre dans .ENV
-        const lineFilter = filters ? `line=${filters}` : "";
+        const lineFilter = filters.line != "All" ? `line=${filters.line}` : "";
         const trainStations = await fetch(baseUrl + lineFilter, {
             method: 'GET',
             headers: {

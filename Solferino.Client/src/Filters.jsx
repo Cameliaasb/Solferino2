@@ -13,7 +13,8 @@ function Filters({ onFiltersChange }) {
 
     useEffect(() => {
         if (selectedLine) {
-            onFiltersChange(selectedLine);
+            onFiltersChange({ line: selectedLine });
+            console.log(selectedLine)
         }
     }, [selectedLine, onFiltersChange]);
 
@@ -21,7 +22,7 @@ function Filters({ onFiltersChange }) {
     const selectLine = lines === undefined
         ? <p> </p>
         : <Form.Select className="col" onChange={(e) => setSelectedLine(e.target.value)} >
-            <option value={""}>Selectionner une ligne de train</option>
+            <option value={"All"}>Selectionner une ligne de train</option>
 
             {lines.map((line, i) =>
                 <option key={i} value={line}>{line}</option>

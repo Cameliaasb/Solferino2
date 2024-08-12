@@ -6,7 +6,7 @@ using Solferino.DAL.Mappers;
 
 namespace Solferino.DAL.Repository
 {
-    public class TrainStationRepo : ITrainStationRepo
+    internal class TrainStationRepo : ITrainStationRepo
     {
         private readonly TrainStationContext _context;
         private readonly IQueryable<TrainStation> _baseQuery;
