@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PassengerData.Dto;
 using PassengerData.Entities.Entities;
-using Solferino.BL.DTOs;
 using Solferino.BL.Mappers;
 using Solferino.DAL;
 

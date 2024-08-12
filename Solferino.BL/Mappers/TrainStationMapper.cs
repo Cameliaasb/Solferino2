@@ -1,5 +1,5 @@
-﻿using PassengerData.Entities.Entities;
-using Solferino.BL.DTOs;
+﻿using PassengerData.Dto;
+using PassengerData.Entities.Entities;
 
 namespace Solferino.BL.Mappers
 {

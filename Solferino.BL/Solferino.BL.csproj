@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PassengerRecord.Dto\PassengerData.Dto.csproj" />
     <ProjectReference Include="..\Solferino.DAL\Solferino.DAL.csproj" />
   </ItemGroup>
 
