@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PassengerData.Entities.Entities;
 using PassengerData.Entities.Enums;
 
-namespace Solferino.DAL.Data
+namespace Solferino.DAL.Seeds
 {
     public static class SeedData
     {
@@ -15,7 +15,7 @@ namespace Solferino.DAL.Data
                 serviceProvider.GetRequiredService<DbContextOptions<TrainStationContext>>());
 
             if (context.TrainStations.Any()) return;
-            
+
             var trainStationsJson = File.ReadAllText("Data\\TrainStations.json");
             var passengerRecordsJson = File.ReadAllText("Data\\PassengerRecords.json");
 
@@ -78,14 +78,14 @@ namespace Solferino.DAL.Data
         private static DayType ToDayType(this JToken day)
         {
             return (DayType)Enum.Parse(typeof(DayType), day.ToString());
-        }        
+        }
         private static TimeRange ToTimeRange(this JToken range)
         {
             switch (range.ToString())
             {
                 case "Avant 6h":
                     return TimeRange.Before6;
-                case "De 6h à 10h":            
+                case "De 6h à 10h":
                     return TimeRange.From6To10;
                 case "De 10h à 16h":
                     return TimeRange.From10To16;
