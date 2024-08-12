@@ -1,7 +1,7 @@
 ﻿using PassengerData.Dto;
 using PassengerData.Entities.Entities;
 
-namespace Solferino.BL.Mappers
+namespace Solferino.DAL.Mappers
 {
     public static class TrainStationMapper
     {

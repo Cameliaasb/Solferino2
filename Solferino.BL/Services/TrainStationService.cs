@@ -1,70 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
 using PassengerData.Dto;
-using PassengerData.Entities.Entities;
-using Solferino.BL.Mappers;
-using Solferino.DAL;
-
+using Solferino.BL.Interfaces;
+using Solferino.DAL.Interfaces;
 
 namespace Solferino.BL.Services
 {
     public class TrainStationService : ITrainStationService
     {
-        private readonly TrainStationContext _context;
-        private readonly IQueryable<TrainStation> _baseQuery;
+        private readonly ITrainStationRepo _trainStationRepo;
 
-
-        public TrainStationService(TrainStationContext context)
+        public TrainStationService(ITrainStationRepo trainStationRepo)
         {
-            _context = context;
-            _baseQuery = _context.TrainStations
-                .Include(station => station.PassengerRecords);
+            _trainStationRepo = trainStationRepo;
         }
 
-
-        public async Task<IEnumerable<TrainStationDTO>> GetTrainStations(int pageSize)
+        public Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters)
         {
-            var stationDtos = await _baseQuery
-              .Take(pageSize)
-              .Select(station => station.ToDto())
-              .ToListAsync();
-
-            return stationDtos;
+            return _trainStationRepo.GetFilteredTrainStations(filters);
         }
 
-        public async Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(int pageSize, Filters filters)
+        public Task<IEnumerable<string>> GetLines()
         {
-            var stations = await ApplyFilters(_baseQuery, filters).ToListAsync();
-
-            var stationDtos = stations
-                .Select(s => s.ToDto())
-                .OrderBy(s => s.NbOfPassengers)
-                .Take(pageSize)
-                .ToList();
-
-            return stationDtos;
+            return _trainStationRepo.GetLines();
         }
 
-        public async Task<IEnumerable<string>> GetLines()
+        public Task<IEnumerable<TrainStationDTO>> GetTrainStations()
         {
-            var lines = await _context.PassengerRecords
-                .Select(record => record.Line).Distinct()
-                .ToListAsync();
-
-            return lines;
+            return _trainStationRepo.GetTrainStations();
         }
-
-
-        private IQueryable<TrainStation> ApplyFilters (IQueryable<TrainStation> query, Filters filters)
-        {
-
-            if (filters.Line is not null)
-            {
-                query = query
-                  .Where(station => station.PassengerRecords.Any(record => record.Line == filters.Line));
-            }
-
-            return query;
-        }
-
     }
 }

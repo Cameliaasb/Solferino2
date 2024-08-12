@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Solferino.BL.Services;
 using PassengerData.Dto;
+using Solferino.BL.Interfaces;
 
 
 
@@ -12,29 +13,29 @@ namespace Solferino.Server.Controllers
     public class TrainStationsController : ControllerBase
     {
         private readonly TrainStationContext _context;
-        private readonly TrainStationService _service;
+        private readonly ITrainStationService _service;
 
 
-        public TrainStationsController(TrainStationContext context, TrainStationService service)
+        public TrainStationsController(TrainStationContext context, ITrainStationService service)
         {
             _context = context;
             _service = service;
         }
 
-        // GET: api/TrainStations/PageSize{nb}
-        [HttpGet("PageSize{pageSize}")]
-        public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetTrainStations([FromRoute] int pageSize)
+        // GET: api/TrainStations
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetTrainStations()
         {
-            var stations = await _service.GetTrainStations(pageSize);
+            var stations = await _service.GetTrainStations();
             return Ok(stations);
 
         }
 
         // GET: api/TrainStations/Filters
-        [HttpGet("PageSize{pageSize}/Filters")]
-        public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetFilteredTrainStations([FromRoute] int pageSize, [FromQuery] Filters filters)
+        [HttpGet("Filters")]
+        public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetFilteredTrainStations([FromQuery] Filters filters)
         {
-            var stations = await _service.GetFilteredTrainStations(pageSize, filters);
+            var stations = await _service.GetFilteredTrainStations(filters);
             return Ok(stations);
         }
 

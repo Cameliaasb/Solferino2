@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 const SimpleMap = () => {
     const [stations, setStations] = useState();
     const [lines, setLines] = useState();
-    const [pageSize, setPageSize] = useState(100);
+    //const [pageSize, setPageSize] = useState(100);
     const [selectedLine, setSelectedLine] = useState("");
 
     const center = {
@@ -25,10 +25,10 @@ const SimpleMap = () => {
        await setSelectedLine(e.target.value);
        fetchTrainStations();
     }
-    const handleChangePageSize = async (e) => {
-        await setPageSize(e.target.value);
-        fetchTrainStations();
-    }
+    //const handleChangePageSize = async (e) => {
+    //    await setPageSize(e.target.value);
+    //    fetchTrainStations();
+    //}
 
 
 
@@ -54,15 +54,15 @@ const SimpleMap = () => {
             )}
         </Form.Select>
 
-    const selectPageSize = pageSize === undefined
-        ? <p> </p>
-        : <Form.Select className="col" onChange={handleChangePageSize} >
-            <option value={100}>Nombre maximal de resultats</option>
-            <option value={5}> 5 </option>
-            <option value={10}> 10 </option>
-            <option value={20}> 20 </option>
-            <option value={50}> 50 </option>
-        </Form.Select>
+    //const selectPageSize = pageSize === undefined
+    //    ? <p> </p>
+    //    : <Form.Select className="col" onChange={handleChangePageSize} >
+    //        <option value={100}>Nombre maximal de resultats</option>
+    //        <option value={5}> 5 </option>
+    //        <option value={10}> 10 </option>
+    //        <option value={20}> 20 </option>
+    //        <option value={50}> 50 </option>
+    //    </Form.Select>
 
 
 
@@ -72,7 +72,7 @@ const SimpleMap = () => {
             <p> to fix : reactivity issue, always one step behind</p>
             <Form className="row gap-3 my-4">
                 {selectLine}
-                {selectPageSize}
+                {/*{selectPageSize}*/}
             </Form>
 
             <MapContainer center={[center.latitude, center.longitude]} zoom={9}  style={{ height: "80vh", width: "80vw" }}>
@@ -103,10 +103,10 @@ const SimpleMap = () => {
 
 
     async function fetchTrainStations() {
-        console.log(pageSize)      // one step behind : WHY?
-        console.log(selectedLine)  // one step behind : WHY?
+        //console.log(pageSize)      // one step behind : WHY?
+        /*//console.log(selectedLine)  // one step behind : WHY?*/
 
-        const baseUrl = `https://localhost:44309/api/trainstations/pageSize${pageSize}/Filters?`;     // A mettre dans .ENV
+        const baseUrl = `https://localhost:44309/api/trainstations/Filters?`;     // A mettre dans .ENV
         const filters = selectedLine ? `line=${selectedLine}` : "";
 
         const trainStations = await fetch(baseUrl + filters, {
