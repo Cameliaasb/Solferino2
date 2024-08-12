@@ -1,6 +1,4 @@
-﻿using Solferino.DAL;
-using Microsoft.AspNetCore.Mvc;
-using Solferino.BL.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using PassengerData.Dto;
 using Solferino.BL.Interfaces;
 
@@ -12,13 +10,11 @@ namespace Solferino.Server.Controllers
     [ApiController]
     public class TrainStationsController : ControllerBase
     {
-        private readonly TrainStationContext _context;
         private readonly ITrainStationService _service;
 
 
-        public TrainStationsController(TrainStationContext context, ITrainStationService service)
+        public TrainStationsController(ITrainStationService service)
         {
-            _context = context;
             _service = service;
         }
 
