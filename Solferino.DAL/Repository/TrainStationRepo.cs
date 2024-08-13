@@ -56,6 +56,17 @@ namespace Solferino.DAL.Repository
             return lines;
         }
 
+        public async Task<IEnumerable<int>> GetYears()
+        {
+            var years = await _context.PassengerRecords
+                .OrderBy(record => record.Year)
+                .Select(record => record.Year).Distinct()
+                .ToListAsync();
+
+            return years;
+        }
+
+
         private static Expression<Func<PassengerRecord, bool>> CreateFilterPredicate(Filters filters)
         {
             return record =>

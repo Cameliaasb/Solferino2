@@ -7,6 +7,8 @@ namespace Solferino.BL.Interfaces
         Task<IEnumerable<TrainStationDTO>> GetTrainStations();
         Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters);
         Task<IEnumerable<string>> GetLines();
+        Task<IEnumerable<int>> GetYears();
+
 
     }
 }

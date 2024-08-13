@@ -6,6 +6,8 @@ namespace Solferino.DAL.Interfaces
     {
         Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters);
         Task<IEnumerable<string>> GetLines();
+        Task<IEnumerable<int>> GetYears();
+
         Task<IEnumerable<TrainStationDTO>> GetTrainStations();
     }
 }

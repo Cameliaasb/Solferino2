@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 
 function Filters({ onFiltersChange }) {
     const [lines, setLines] = useState();
+    const [years, setYears] = useState();
+
     const [filters, setFilters] = useState({ line: "All", dayType: "All", year: "All", timeRange: "All" })
 
     const [selectedLine, setSelectedLine] = useState();
@@ -14,7 +16,9 @@ function Filters({ onFiltersChange }) {
 
 
     useEffect(() => {
-        fetchLines()
+        fetchLines();
+        fetchYears();
+
     }, [])
 
 
@@ -78,18 +82,19 @@ function Filters({ onFiltersChange }) {
             setFilters({ ...filters, year: selectedYear })
         }
     }, [selectedYear]);
-    const yearOptions = [2014, 2016, 2017, 2018, 2019, 2021]
-    const selectYear = <Form.Select className="col" onChange={(e) => setSelectedYear(e.target.value)}>
-        <option value={"All"}>Année</option>
-        {yearOptions.map((option) =>
-            <option key={option} value={option}>{option}</option>
-        )}
-    </Form.Select>
+    const selectYear = years === undefined
+        ? <p> </p>
+        : <Form.Select className="col" onChange={(e) => setSelectedYear(e.target.value)}>
+            <option value={"All"}>Année</option>
+                {years.map((option) =>
+                <option key={option} value={option}>{option}</option>
+            )}
+         </Form.Select>
 
 
 
     return (
-        <div className="row gap-3 my-4" >
+        <div className="d-flex justify-content-center gap-3 my-4" >
             {selectLine}
             {selectDayType}
             {selectTimeRange}
@@ -101,7 +106,7 @@ function Filters({ onFiltersChange }) {
 
 
     async function fetchLines() {
-        const lines = await fetch("https://localhost:44309/api/trainstations/lines", {
+        const lines = await fetch("https://localhost:44309/api/data/lines", {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -109,6 +114,18 @@ function Filters({ onFiltersChange }) {
         });
         const dataLines = await lines.json();
         setLines(dataLines);
+    }
+
+
+    async function fetchYears() {
+        const years = await fetch("https://localhost:44309/api/data/years", {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        const dataYears = await years.json();
+        setYears(dataYears);
     }
 
 }

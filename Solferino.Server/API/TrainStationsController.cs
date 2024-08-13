@@ -4,7 +4,7 @@ using Solferino.BL.Interfaces;
 
 
 
-namespace Solferino.Server.Controllers
+namespace Solferino.Server.API
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -36,13 +36,13 @@ namespace Solferino.Server.Controllers
         }
 
 
-        // GET: api/TrainStations/Lines
-        [HttpGet("Lines")]
-        public async Task<ActionResult<IEnumerable<string>>> GetLines()
-        {
-            var lines = await _service.GetLines();
-            return Ok(lines);
-        }
+        //// GET: api/TrainStations/Lines
+        //[HttpGet("Lines")]
+        //public async Task<ActionResult<IEnumerable<string>>> GetLines()
+        //{
+        //    var lines = await _service.GetLines();
+        //    return Ok(lines);
+        //}
 
     }
 }
