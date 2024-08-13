@@ -65,7 +65,6 @@ namespace Solferino.DAL.Seeds
             return passengerRecords
                 .Select(t => new PassengerRecord
                 {
-                    Date = t["date"]!.Value<DateTime>(),
                     Day = t["jour"]!.ToDayType(),
                     Year = t["annee"]!.Value<int>(),
                     TimeRange = t["par_periode_horaire"]!.ToTimeRange(),
