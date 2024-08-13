@@ -6,7 +6,7 @@ import Filters from "./Filters";
 
 const SimpleMap = () => {
     const [stations, setStations] = useState();
-    const [filters, setFilters] = useState({line: "All"});
+    const [filters, setFilters] = useState({});
 
 
     const center = {
@@ -30,14 +30,15 @@ const SimpleMap = () => {
     const stationMarkers = stations === undefined
         ? <p>En cours de chargement </p>
         : stations.map(station =>
-            <Circle key={station.name} center={[station.latitude, station.longitude]} ></Circle>
+            <Circle key={station.name} center={[station.latitude, station.longitude]}>
+            </Circle>
         )
 
 
 
     return (
         <div>
-            <Form className="row gap-3 my-4">
+            <Form >
                 <Filters onFiltersChange={setFilters} />
             </Form>
 
@@ -53,11 +54,23 @@ const SimpleMap = () => {
         </div>
     );
 
+
+
     async function fetchTrainStations() {
 
         const baseUrl = `https://localhost:44309/api/trainstations/Filters?`;     // A mettre dans .ENV
-        const lineFilter = filters.line != "All" ? `line=${filters.line}` : "";
-        const trainStations = await fetch(baseUrl + lineFilter, {
+        const lineFilter = filters.line != "All" ? `line=${filters.line}&` : "";
+        const dayTypeFilter = filters.dayType != "All" ? `day=${filters.dayType}&` : "";
+        const timeRangeFilter = filters.timeRange != "All" ? `timeRange=${filters.timeRange}&` : "";
+        const yearFilter = filters.year != "All" ? `year=${filters.year}&` : "";
+
+        const url = baseUrl + lineFilter + dayTypeFilter + timeRangeFilter + yearFilter;
+
+        fetchData(url)
+    }
+
+    async function fetchData(url) {
+        const trainStations = await fetch(url, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -66,6 +79,9 @@ const SimpleMap = () => {
         const dataStations = await trainStations.json();
         setStations(dataStations);
     }
+
+
+
 
 };
 
