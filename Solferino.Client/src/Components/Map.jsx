@@ -28,11 +28,27 @@ const SimpleMap = () => {
     }, [filters]);
 
     const getRadius = (nbOfPassengers) => {
-        if (nbOfPassengers > 10000) return 800;
-        if (nbOfPassengers > 5000) return 600;
-        if (nbOfPassengers > 1000) return 400;
-        if (nbOfPassengers > 500) return 200;
-        else return 50;
+        if (nbOfPassengers > 10000) return 1000;
+        if (nbOfPassengers > 5000) return 750;
+        if (nbOfPassengers > 1000) return 500;
+        if (nbOfPassengers > 500) return 250;
+        else return 100;
+    }
+
+    //const getColor = (nbOfPassengers) => {
+    //    if (nbOfPassengers > 10000) return "darkgreen";
+    //    if (nbOfPassengers > 5000) return "seagreen  ";
+    //    if (nbOfPassengers > 1000) return "darkseagreen  ";
+    //    if (nbOfPassengers > 500) return "yellowgreen ";
+    //    else return "lightgreen  ";
+    //}
+
+    const getColor = (nbOfPassengers) => {
+        if (nbOfPassengers > 10000) return "indigo";
+        if (nbOfPassengers > 5000) return "darkmagenta ";
+        if (nbOfPassengers > 1000) return "mediumslateblue ";
+        if (nbOfPassengers > 500) return "darkorchid ";
+        else return "orchid ";
     }
 
     const stationMarkers = stations === undefined
@@ -41,7 +57,7 @@ const SimpleMap = () => {
             <Circle key={station.name}
                 center={[station.latitude, station.longitude]}
                 radius={getRadius(station.nbOfPassengers)}
-                pathOptions={{ color: 'green' }}
+                pathOptions={{ color: getColor(station.nbOfPassengers), fillColor: getColor(station.nbOfPassengers) }}
             >
                 <Popup>
                     <StationLabel station={station} />
