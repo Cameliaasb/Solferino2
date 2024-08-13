@@ -1,5 +1,5 @@
 import './App.css';
-import SimpleMap from './Map';
+import SimpleMap from './Components/Map';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
