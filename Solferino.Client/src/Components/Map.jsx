@@ -6,7 +6,7 @@ import StationLabel from "./StationLabel"
 
 const SimpleMap = () => {
     const [stations, setStations] = useState();
-    const [filters, setFilters] = useState({ line: "All", dayType: "All", year: "All", timeRange: "All" });
+    const [filters, setFilters] = useState({ line: "A", dayType: "All", year: "All", timeRange: "All" });
 
 
     const center = {
@@ -34,20 +34,14 @@ const SimpleMap = () => {
         else return 100;
     }
 
-    //const getColor = (nbOfPassengers) => {
-    //    if (nbOfPassengers > 10000) return "darkgreen";
-    //    if (nbOfPassengers > 5000) return "seagreen  ";
-    //    if (nbOfPassengers > 1000) return "darkseagreen  ";
-    //    if (nbOfPassengers > 500) return "yellowgreen ";
-    //    else return "lightgreen  ";
-    //}
 
     const getColor = (nbOfPassengers) => {
         if (nbOfPassengers > 10000) return "indigo";
         if (nbOfPassengers > 5000) return "darkmagenta ";
         if (nbOfPassengers > 1000) return "mediumslateblue ";
         if (nbOfPassengers > 500) return "darkorchid ";
-        else return "orchid ";
+        if (nbOfPassengers > 0) return "darkorchid ";
+        else return "red ";
     }
 
     const stationMarkers = stations === undefined

@@ -5,7 +5,7 @@ function Filters({ onFiltersChange }) {
     const [lines, setLines] = useState();
     const [years, setYears] = useState();
 
-    const [filters, setFilters] = useState({ line: "All", dayType: "All", year: "All", timeRange: "All" })
+    const [filters, setFilters] = useState({ line: "A", dayType: "All", year: "All", timeRange: "All" })
 
     const [selectedLine, setSelectedLine] = useState();
     const [selectedDayType, setSelectedDayType] = useState();

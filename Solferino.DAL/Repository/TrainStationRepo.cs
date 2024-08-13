@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PassengerData.Dto;
-using PassengerData.Entities.Entities;
 using Solferino.DAL.Interfaces;
-using System.Linq.Expressions;
+using Solferino.DAL.Mapper;
 
 
 namespace Solferino.DAL.Repository
@@ -11,7 +10,6 @@ namespace Solferino.DAL.Repository
     {
         private readonly TrainStationContext _context;
 
-
         public TrainStationRepo(TrainStationContext context)
         {
             _context = context;
@@ -19,22 +17,11 @@ namespace Solferino.DAL.Repository
 
         public async Task<IEnumerable<TrainStationDTO>> GetTrainStations(Filters filters)
         {
-            var predicate = CreateFilterPredicate(filters);
 
-            var query = ApplyFilters(_context.TrainStations, filters)
-                .Select((station) =>
-                    new TrainStationDTO
-                    {
-                        Name = station.Name,
-                        Latitude = station.Latitude,
-                        Longitude = station.Longitude,
-                        NbOfPassengers = ((int)station.PassengerRecords.AsQueryable()
-                            .Where(predicate)
-                            .Select(record => record.NbOfPassengers).Average()),        // Average per timeRange not per day (*5) !
-                        Lines = getStationLines(station.PassengerRecords.ToList())
-                    }
-
-                );
+            var query = _context.TrainStations
+                .Include(t => t.PassengerRecords)
+                .Where(s => s.PassengerRecords.Any(r => r.Line == filters.Line))
+                .Select(station => station.toDto(filters));
 
             var stations = await query.ToListAsync();
             return stations;
@@ -59,26 +46,5 @@ namespace Solferino.DAL.Repository
             return years;
         }
 
-        private List<string> getStationLines(List<PassengerRecord> records)
-        {
-            var lines = records.Select(record => record.Line).Distinct().ToList();
-            return lines;
-        }
-
-        private static Expression<Func<PassengerRecord, bool>> CreateFilterPredicate(Filters filters)
-        {
-            return record =>
-                (filters.Line == null || record.Line == filters.Line) &&
-                (filters.Day == null || (int)record.Day == filters.Day) &&
-                (filters.Year == null || record.Year == filters.Year) &&
-                (filters.TimeRange == null || (int)record.TimeRange == filters.TimeRange);
-        }
-
-        private IQueryable<TrainStation> ApplyFilters(IQueryable<TrainStation> query, Filters filters)
-        {
-            var predicate = CreateFilterPredicate(filters);
-            return query
-                .Where(station => station.PassengerRecords.AsQueryable().Any(predicate));
-        }
     }
-    }
+}
