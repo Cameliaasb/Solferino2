@@ -72,7 +72,7 @@ const SimpleMap = () => {
 
     async function fetchTrainStations() {
 
-        const baseUrl = `https://localhost:44309/api/trainstations/Filters?`;     // A mettre dans .ENV
+        const baseUrl = `https://localhost:44309/api/trainstations?`;     // A mettre dans .ENV
         const lineFilter = filters.line != "All" ? `line=${filters.line}&` : "";
         const dayTypeFilter = filters.dayType != "All" ? `day=${filters.dayType}&` : "";
         const timeRangeFilter = filters.timeRange != "All" ? `timeRange=${filters.timeRange}&` : "";

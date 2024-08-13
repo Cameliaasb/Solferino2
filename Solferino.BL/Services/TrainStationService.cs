@@ -14,9 +14,9 @@ namespace Solferino.BL.Services
             _trainStationRepo = trainStationRepo;
         }
 
-        public Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters)
+        public Task<IEnumerable<TrainStationDTO>> GetTrainStations(Filters filters)
         {
-            return _trainStationRepo.GetFilteredTrainStations(filters);
+            return _trainStationRepo.GetTrainStations(filters);
         }
 
         public Task<IEnumerable<string>> GetLines()

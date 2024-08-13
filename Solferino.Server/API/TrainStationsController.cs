@@ -19,11 +19,11 @@ namespace Solferino.Server.API
         }
 
 
-        // GET: api/TrainStations/Filters
-        [HttpGet("Filters")]
+        // GET: api/TrainStations
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<TrainStationDTO>>> GetTrainStations([FromQuery] Filters filters)
         {
-            var stations = await _service.GetFilteredTrainStations(filters);
+            var stations = await _service.GetTrainStations(filters);
             return Ok(stations);
         }
 

@@ -2,9 +2,7 @@
 using PassengerData.Dto;
 using PassengerData.Entities.Entities;
 using Solferino.DAL.Interfaces;
-//using Solferino.DAL.Mappers;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 
 namespace Solferino.DAL.Repository
@@ -19,7 +17,7 @@ namespace Solferino.DAL.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters)
+        public async Task<IEnumerable<TrainStationDTO>> GetTrainStations(Filters filters)
         {
             var predicate = CreateFilterPredicate(filters);
 
