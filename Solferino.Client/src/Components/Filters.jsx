@@ -67,7 +67,7 @@ function Filters({ onFiltersChange }) {
             setFilters({ ...filters, timeRange: selectedTimeRange })
         }
     }, [selectedTimeRange]);
-    const timeRangeOptions = ["Avant 6h", "Entre 6h et 10h", "Entre 10h et 16h", "Entre 16h et 20h", "Après 20h"]
+    const timeRangeOptions = ["Avant 6h", "Entre 6h et 10h", "Entre 10h et 16h", "Entre 16h et 20h", `Apr${'\u00e8'}s 20h`]
     const selectTimeRange= <Form.Select className="col" onChange={(e) => setSelectedTimeRange(e.target.value)}>
         <option value={"All"}>Tranche horaire</option>
         {timeRangeOptions.map((option, i) =>
@@ -85,7 +85,7 @@ function Filters({ onFiltersChange }) {
     const selectYear = years === undefined
         ? <p> </p>
         : <Form.Select className="col" onChange={(e) => setSelectedYear(e.target.value)}>
-            <option value={"All"}>Année</option>
+            <option value={"All"}>Ann{'\u00e9'}e</option>
                 {years.map((option) =>
                 <option key={option} value={option}>{option}</option>
             )}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
-import Form from 'react-bootstrap/Form';
 import "leaflet/dist/leaflet.css";
 import Filters from "./Filters";
 import StationLabel from "./StationLabel"
@@ -69,7 +68,7 @@ const SimpleMap = () => {
 
     return (
         <div className="container">
-            <p> Nombre de passagers moyen par tranche horaire </p>
+            <p> Nombre de passagers moyen par tranche horaire  </p>
             
             <Filters onFiltersChange={setFilters} />
 
