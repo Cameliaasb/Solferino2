@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Circle, LayerGroup } from "react-leaflet";
+import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import Form from 'react-bootstrap/Form';
 import "leaflet/dist/leaflet.css";
 import Filters from "./Filters";
 
 const SimpleMap = () => {
     const [stations, setStations] = useState();
-    const [filters, setFilters] = useState({});
+    const [filters, setFilters] = useState({ line: "All", dayType: "All", year: "All", timeRange: "All" });
 
 
     const center = {
@@ -26,11 +26,22 @@ const SimpleMap = () => {
         }
     }, [filters]);
 
+    const getRadius = (nbOfPassengers) => {
+        if (nbOfPassengers > 1000) return 600;
+        if (nbOfPassengers > 750) return 400;
+        if (nbOfPassengers > 500) return 200;
+        if (nbOfPassengers > 250) return 100;
+        else return 50;
+
+    }
 
     const stationMarkers = stations === undefined
         ? <p>En cours de chargement </p>
         : stations.map(station =>
-            <Circle key={station.name} center={[station.latitude, station.longitude]}>
+            <Circle key={station.name} center={[station.latitude, station.longitude]} radius={getRadius(station.nbOfPassengers)}>
+                <Popup>
+                    {station.name}
+                </Popup>
             </Circle>
         )
 
@@ -66,10 +77,6 @@ const SimpleMap = () => {
 
         const url = baseUrl + lineFilter + dayTypeFilter + timeRangeFilter + yearFilter;
 
-        fetchData(url)
-    }
-
-    async function fetchData(url) {
         const trainStations = await fetch(url, {
             method: 'GET',
             headers: {
@@ -79,6 +86,8 @@ const SimpleMap = () => {
         const dataStations = await trainStations.json();
         setStations(dataStations);
     }
+
+  
 
 
 
