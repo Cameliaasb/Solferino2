@@ -27,12 +27,10 @@ const SimpleMap = () => {
     }, [filters]);
 
     const getRadius = (nbOfPassengers) => {
-        if (nbOfPassengers > 100000) return 600;
-        if (nbOfPassengers > 10000) return 400;
-        if (nbOfPassengers > 1000) return 200;
-        if (nbOfPassengers > 100) return 100;
+        if (nbOfPassengers > 10000) return 600;
+        if (nbOfPassengers > 1000) return 400;
+        if (nbOfPassengers > 100) return 200;
         else return 50;
-
     }
 
     const stationMarkers = stations === undefined
@@ -41,7 +39,7 @@ const SimpleMap = () => {
             <Circle key={station.name} center={[station.latitude, station.longitude]} radius={getRadius(station.nbOfPassengers)}>
                 <Popup>
                     <h6 className="font-weight-bold">  {station.name} </h6>
-                    <p> {station.nbOfPassengers} passagers </p>
+                    <p> {station.nbOfPassengers} passagers</p>
                 </Popup>
             </Circle>
         )
@@ -50,6 +48,7 @@ const SimpleMap = () => {
 
     return (
         <div>
+            <p> Nombre de passagers moyen par tranche horaire </p>
             <Form>
                 <Filters onFiltersChange={setFilters} />
             </Form>

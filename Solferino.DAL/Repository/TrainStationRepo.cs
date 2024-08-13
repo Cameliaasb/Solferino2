@@ -38,9 +38,9 @@ namespace Solferino.DAL.Repository
                     Name = station.Name,
                     Latitude = station.Latitude,
                     Longitude = station.Longitude,
-                    NbOfPassengers = station.PassengerRecords.AsQueryable()
+                    NbOfPassengers = ((int)station.PassengerRecords.AsQueryable()
                         .Where(predicate)
-                        .Sum(record => record.NbOfPassengers)
+                        .Select(record => record.NbOfPassengers).Average())          // Average per timeRange not per day (*5) !
                 });
 
             var stations = await query.ToListAsync();
