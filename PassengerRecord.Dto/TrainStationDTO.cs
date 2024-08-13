@@ -6,5 +6,7 @@
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         public int NbOfPassengers { get; set; }
+
+        public required List<string> Lines { get; set; }
     }
 }

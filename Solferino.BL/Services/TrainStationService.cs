@@ -29,10 +29,5 @@ namespace Solferino.BL.Services
         {
             return _trainStationRepo.GetYears();
         }
-
-        public Task<IEnumerable<TrainStationDTO>> GetTrainStations()
-        {
-            return _trainStationRepo.GetTrainStations();
-        }
     }
 }

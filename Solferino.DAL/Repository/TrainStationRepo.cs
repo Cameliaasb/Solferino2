@@ -2,8 +2,9 @@
 using PassengerData.Dto;
 using PassengerData.Entities.Entities;
 using Solferino.DAL.Interfaces;
-using Solferino.DAL.Mappers;
+//using Solferino.DAL.Mappers;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 
 namespace Solferino.DAL.Repository
@@ -18,30 +19,24 @@ namespace Solferino.DAL.Repository
             _context = context;
         }
 
-
-        public async Task<IEnumerable<TrainStationDTO>> GetTrainStations()
-        {
-            var stationDtos = await _context.TrainStations
-              .Include(station => station.PassengerRecords)
-              .Select(station => station.ToDto())
-              .ToListAsync();
-
-            return stationDtos;
-        }
         public async Task<IEnumerable<TrainStationDTO>> GetFilteredTrainStations(Filters filters)
         {
             var predicate = CreateFilterPredicate(filters);
 
             var query = ApplyFilters(_context.TrainStations, filters)
-                .Select(station => new TrainStationDTO
-                {
-                    Name = station.Name,
-                    Latitude = station.Latitude,
-                    Longitude = station.Longitude,
-                    NbOfPassengers = ((int)station.PassengerRecords.AsQueryable()
-                        .Where(predicate)
-                        .Select(record => record.NbOfPassengers).Average())          // Average per timeRange not per day (*5) !
-                });
+                .Select((station) =>
+                    new TrainStationDTO
+                    {
+                        Name = station.Name,
+                        Latitude = station.Latitude,
+                        Longitude = station.Longitude,
+                        NbOfPassengers = ((int)station.PassengerRecords.AsQueryable()
+                            .Where(predicate)
+                            .Select(record => record.NbOfPassengers).Average()),        // Average per timeRange not per day (*5) !
+                        Lines = getStationLines(station.PassengerRecords.ToList())
+                    }
+
+                );
 
             var stations = await query.ToListAsync();
             return stations;
@@ -66,6 +61,11 @@ namespace Solferino.DAL.Repository
             return years;
         }
 
+        private List<string> getStationLines(List<PassengerRecord> records)
+        {
+            var lines = records.Select(record => record.Line).Distinct().ToList();
+            return lines;
+        }
 
         private static Expression<Func<PassengerRecord, bool>> CreateFilterPredicate(Filters filters)
         {

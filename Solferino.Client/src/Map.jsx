@@ -40,6 +40,9 @@ const SimpleMap = () => {
                 <Popup>
                     <h6 className="font-weight-bold">  {station.name} </h6>
                     <p> {station.nbOfPassengers} passagers</p>
+                    {station.lines.map(line => 
+                        line
+                    )}
                 </Popup>
             </Circle>
         )
