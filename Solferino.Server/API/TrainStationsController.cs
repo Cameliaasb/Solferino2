@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PassengerData.Dto;
+using PassengerData.Entities.Entities;
 using Solferino.BL.Interfaces;
 
 
@@ -26,6 +27,16 @@ namespace Solferino.Server.API
             var stations = await _service.GetTrainStations(filters);
             return Ok(stations);
         }
+
+        // POST: api/TrainStations
+        //[HttpPost("{stationId}/PassengerRecord")]
+        //public async Task<ActionResult<IEnumerable<TrainStationDTO>>> NewRecord([FromRoute] int stationId, [FromBody] PassengerRecord newRecord )
+        //{
+        //    // TO DO: Create PassengerRecordDto
+        //    // TO DO: Add method in service/repo
+            
+        //    //return Ok();
+        //}
 
     }
 }
