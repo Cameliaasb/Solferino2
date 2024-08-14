@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Form from 'react-bootstrap/Form';
 
-function Filters({ onFiltersChange }) {
+function Filters({ onFiltersChange, defaultFilters }) {
     const [lines, setLines] = useState();
     const [years, setYears] = useState();
 
-    const [filters, setFilters] = useState({ line: "A", dayType: "All", year: "All", timeRange: "All" })
+    const [filters, setFilters] = useState(defaultFilters)
 
     const [selectedLine, setSelectedLine] = useState();
     const [selectedDayType, setSelectedDayType] = useState();
@@ -39,8 +39,8 @@ function Filters({ onFiltersChange }) {
 
     const selectLine = lines === undefined
         ? <p> </p>
-        : <Form.Select className="col" onChange={(e) => setSelectedLine(e.target.value)} >
-            <option value={"All"}>Ligne de train</option>
+        : <Form.Select defaultValue={filters.line}  className="col" onChange={(e) => setSelectedLine(e.target.value)} >
+            <option value={"All"} disabled>Ligne de train</option>
 
             {lines.map((line, i) =>
                 <option key={i} value={line}>{line}</option>
@@ -54,10 +54,10 @@ function Filters({ onFiltersChange }) {
         }
     }, [selectedDayType]);
     const dayTypeOptions = ["Lundi-Vendredi", "Samedi", "Dimanche"]
-    const selectDayType = <Form.Select className="col" onChange={(e) => setSelectedDayType(e.target.value)}>
-             <option value={"All"}>Type de jour</option>
+    const selectDayType = <Form.Select defaultValue={filters.dayType}  className="col" onChange={(e) => setSelectedDayType(e.target.value)}>
+        <option value={"All"} disabled>Type de jour</option>
             {dayTypeOptions.map((option, i) =>
-                <option key={i} value={i}>{option}</option>
+                <option key={i} value={i} >{option}</option>
             )}
     </Form.Select>
 
@@ -68,8 +68,8 @@ function Filters({ onFiltersChange }) {
         }
     }, [selectedTimeRange]);
     const timeRangeOptions = ["Avant 6h", "Entre 6h et 10h", "Entre 10h et 16h", "Entre 16h et 20h", `Apr${'\u00e8'}s 20h`]
-    const selectTimeRange= <Form.Select className="col" onChange={(e) => setSelectedTimeRange(e.target.value)}>
-        <option value={"All"}>Tranche horaire</option>
+    const selectTimeRange = <Form.Select defaultValue={filters.timeRange} className="col" onChange={(e) => setSelectedTimeRange(e.target.value)}>
+        <option value={"All"} disabled>Tranche horaire</option>
         {timeRangeOptions.map((option, i) =>
             <option key={i} value={i}>{option}</option>
         )}
@@ -84,10 +84,10 @@ function Filters({ onFiltersChange }) {
     }, [selectedYear]);
     const selectYear = years === undefined
         ? <p> </p>
-        : <Form.Select className="col" onChange={(e) => setSelectedYear(e.target.value)}>
-            <option value={"All"}>Ann{'\u00e9'}e</option>
+        : <Form.Select defaultValue={filters.year} className="col" onChange={(e) => setSelectedYear(e.target.value)}>
+            <option value={"All"} disabled>Ann{'\u00e9'}e</option>
                 {years.map((option) =>
-                <option key={option} value={option}>{option}</option>
+                    <option key={option} value={option} >{option}</option>
             )}
          </Form.Select>
 

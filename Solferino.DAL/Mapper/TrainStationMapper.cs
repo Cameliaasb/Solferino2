@@ -30,16 +30,15 @@ namespace Solferino.DAL.Mapper
         private static Expression<Func<PassengerRecord, bool>> CreateFilterPredicate(Filters filters)
         {
             return record =>
-                (filters.Line == null || record.Line == filters.Line) &&
-                (filters.Day == null || (int)record.Day == filters.Day) &&
+                (record.Line == filters.Line) &&
                 (filters.Year == null || record.Year == filters.Year) &&
+                (filters.Day == null || (int)record.Day == filters.Day) &&
                 (filters.TimeRange == null || (int)record.TimeRange == filters.TimeRange);
         }
 
         private static List<string> getStationLines(List<PassengerRecord> records)
         {
-            var lines = records.Select(record => record.Line).Distinct().ToList();
-            return lines;
+            return records.Select(record => record.Line).Distinct().ToList();
         }
 
     }

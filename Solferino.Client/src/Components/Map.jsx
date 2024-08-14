@@ -6,8 +6,8 @@ import StationLabel from "./StationLabel"
 
 const SimpleMap = () => {
     const [stations, setStations] = useState();
-    const [filters, setFilters] = useState({ line: "A", dayType: "All", year: "All", timeRange: "All" });
-
+    const defaultFilters = { line: "A", dayType: 1, year: 2021, timeRange: 1 };
+    const [filters, setFilters] = useState(defaultFilters);
 
     const center = {
         latitude: 48.866667,
@@ -63,8 +63,8 @@ const SimpleMap = () => {
     return (
         <div className="container">
             <p> Nombre de passagers moyen par tranche horaire  </p>
-            
-            <Filters onFiltersChange={setFilters} />
+
+            <Filters onFiltersChange={setFilters} defaultFilters={defaultFilters} />
 
             <MapContainer center={[center.latitude, center.longitude]} zoom={9} style={{ height: "60vh", width: "60vw" }} >
                 <TileLayer
@@ -82,11 +82,11 @@ const SimpleMap = () => {
 
     async function fetchTrainStations() {
 
-        const baseUrl = `https://localhost:44309/api/trainstations?`;     // A mettre dans .ENV
-        const lineFilter = filters.line != "All" ? `line=${filters.line}&` : "";
-        const dayTypeFilter = filters.dayType != "All" ? `day=${filters.dayType}&` : "";
-        const timeRangeFilter = filters.timeRange != "All" ? `timeRange=${filters.timeRange}&` : "";
-        const yearFilter = filters.year != "All" ? `year=${filters.year}&` : "";
+        const baseUrl = `https://localhost:44309/api/trainstations?`;     // A mettre dans JSON
+        const lineFilter = `line=${filters.line}&`;
+        const dayTypeFilter = `day=${filters.dayType}&` ;
+        const timeRangeFilter = `timeRange=${filters.timeRange}&` ;
+        const yearFilter = `year=${filters.year}&` ;
 
         const url = baseUrl + lineFilter + dayTypeFilter + timeRangeFilter + yearFilter;
 
